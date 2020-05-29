@@ -1,0 +1,9 @@
+ version=0.1
+ [default.deploy.parameters]
+ region = "us-east-1"
+ stack_name = "secure-server-dev"
+ s3_bucket = "deploy-resources-us-east-1"
+ capabilities = "CAPABILITY_IAM"
+ template_file = "./resources/secureServerInfastructure.yaml"
+ no_fail_on_empty_changset = true
+ s3_prefix = "secure-server/dev/manual-deploy"

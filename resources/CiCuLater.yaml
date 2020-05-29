@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'EC2 cluster for a secure server'
+Parameters:
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.nano
+    AllowedValues: [t2.micro, t2.small, t2.medium, t2.large, m3.medium, m3.large,
+      m3.xlarge, m3.2xlarge, m4.large, m4.xlarge, m4.2xlarge, m4.4xlarge, m4.10xlarge,
+      c4.large, c4.xlarge, c4.2xlarge, c4.4xlarge, c4.8xlarge, c3.large, c3.xlarge,
+      c3.2xlarge, c3.4xlarge, c3.8xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge,
+      r3.8xlarge, i2.xlarge, i2.2xlarge, i2.4xlarge, i2.8xlarge, t2.nano ] 
+    ConstraintDescription: Please choose a valid instance type.
+
+  SSHKeyName:
+    Description: EC2 instance type
+    Type: String
+    ConstraintDescription: Please choose a valid KeyName
+
+  VolumeSize:
+    Description: size of volume
+    Type: Number
+    Default: 20
+    ConstraintDescription: Please choose a valid Number
+    AllowedValues: [20, 30, 40, 50]
+
+  IOPS:
+    Description: total ipos
+    Type: Number
+    Default: 100
+    ConstraintDescription: Please choose a valid Number
+    AllowedValues: [100, 200, 500, 1000]
+
+  ImageId:
+    Type: String
+    Description: 'value for region singapore. If you using other version please choose right'
+    Default: 'amazon-eks-ubuntu-18.04-node-1551468407'
+
+    myUserData:
+      Type: String
+      Default: |
+        #!/bin/bash
+        yum update -y
+        git clone https://github.com/twosdai/CiCuLater.git
+        cd ./CiCuLater
+        npm i
+        node ./src/secureCIAPI/index.js
+
+
+
+Resources:
+  EC2Example:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref SSHKeyName
+      UserData: !Ref myUserData
+      BlockDeviceMappings:
+        -
+          DeviceName: /dev/sda1
+          Ebs:
+            VolumeType: io1
+            Iops: !Ref IOPS
+            DeleteOnTermination: true
