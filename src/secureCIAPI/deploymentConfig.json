@@ -1,0 +1,8 @@
+{
+    "appSession": {
+      "secret": "for"
+    },
+    "baseURL": "http://localhost:3000",
+    "clientID": "FILL ME IN PLEASE",
+    "issuerBaseURL": "FILL ME IN PLEASE"
+}

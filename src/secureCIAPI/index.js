@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("./util/logger");
 const bodyParser = require("body-parser");
+const deploymentConfig = require('./deploymentConfig.json')
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -21,12 +22,7 @@ const errorHandler = (err, req, res, next) => {
 const config = {
   required: false,
   auth0Logout: true,
-  appSession: {
-    secret: "FILL ME IN PLEASE",
-  },
-  baseURL: "http://localhost:3000",
-  clientID: "FILL ME IN PLEASE",
-  issuerBaseURL: "FILL ME IN PLEASE",
+  ...deploymentConfig
 };
 
 // Initalize the express application
