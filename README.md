@@ -13,6 +13,10 @@ Clone the repository with `git clone http://endpoint....`
 
 Run `npm i` from the root of the project
 
+Run `sam deploy ./resources/CiCulater.yaml --parameter-overrides SSHKeyName = 'secureserverkey'` where the secureserverkey value should be replaced with whatever EC2 SSH key is setup.
+
+After deployment ssh into the server, you can read about how to do this via the EC2 console. 
+
 Fill in the secrets within the configuration these can be found on[ AUTH0](https://auth0.com/) under the API which needs to be created, (Search for `FILL ME`)
 
 Run `node ./src/secureCIAPI/index.js` to start the server

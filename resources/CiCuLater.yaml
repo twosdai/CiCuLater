@@ -91,12 +91,10 @@ Resources:
                 git clone https://github.com/twosdai/CiCuLater.git
                 cd ./CiCuLater
                 sudo apt-get install curl
-                cat ./resources/CiCuLaterConfig/secureAPI.json > ./src/secureCIAPI/deploymentConfig.json
                 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
                 sudo apt install nodejs
                 sudo apt install npm
                 npm i
-                node ./src/secureCIAPI/index.js
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
